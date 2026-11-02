@@ -1,0 +1,74 @@
+/* DealWaggle base: applies the system to the whole page once imported.
+   Light-touch reset, page colours and type, focus, selection, links, text-style classes. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--dw-bg);
+  color: var(--dw-text);
+  font: var(--dw-type-body);
+  letter-spacing: var(--dw-type-body-tracking);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6, p, figure, blockquote { margin: 0; }
+h1, h2, h3, h4, h5, h6 { font-weight: inherit; font-size: inherit; text-wrap: balance; }
+p { text-wrap: pretty; }
+img, svg, video, canvas { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; }
+button { cursor: pointer; }
+:disabled { cursor: not-allowed; }
+
+/* Links: ink text with a honey underline. */
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--dw-accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--dw-duration-fast) var(--dw-ease-standard);
+}
+a:hover { text-decoration-color: var(--dw-accent-text); }
+
+:focus-visible {
+  outline: 2px solid var(--dw-focus);
+  outline-offset: 2px;
+  border-radius: var(--dw-radius-xs);
+}
+::selection { background: var(--dw-accent-soft-strong); color: var(--dw-text); }
+::placeholder { color: var(--dw-text-subtle); opacity: 1; }
+hr { border: 0; border-top: 1px solid var(--dw-border); margin: var(--dw-space-6) 0; }
+
+/* Text styles. Pair a style with a colour helper when needed. */
+.dw-display  { font: var(--dw-type-display);  letter-spacing: var(--dw-type-display-tracking); }
+.dw-title-1  { font: var(--dw-type-title-1);  letter-spacing: var(--dw-type-title-1-tracking); }
+.dw-title-2  { font: var(--dw-type-title-2);  letter-spacing: var(--dw-type-title-2-tracking); }
+.dw-title-3  { font: var(--dw-type-title-3);  letter-spacing: var(--dw-type-title-3-tracking); }
+.dw-body-lg  { font: var(--dw-type-body-lg);  letter-spacing: var(--dw-type-body-lg-tracking); }
+.dw-body     { font: var(--dw-type-body);     letter-spacing: var(--dw-type-body-tracking); }
+.dw-label    { font: var(--dw-type-label);    letter-spacing: var(--dw-type-label-tracking); }
+.dw-caption  { font: var(--dw-type-caption);  letter-spacing: var(--dw-type-caption-tracking); }
+.dw-overline { font: var(--dw-type-overline); letter-spacing: var(--dw-type-overline-tracking); text-transform: uppercase; }
+.dw-mono     { font: var(--dw-type-mono);     letter-spacing: var(--dw-type-mono-tracking); }
+
+.dw-muted  { color: var(--dw-text-muted); }
+.dw-subtle { color: var(--dw-text-subtle); }
+.dw-accent-text { color: var(--dw-accent-text); }
+/* Amounts, dates and counts line up in lists and tables. */
+.dw-num { font-variant-numeric: tabular-nums; }
+
+.dw-visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}

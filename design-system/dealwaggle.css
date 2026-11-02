@@ -1,0 +1,10 @@
+/* DealWaggle design system: import this one file to apply it everywhere.
+   Layers match Tailwind v4's order, so utility classes can still override base and component styles.
+   Without Tailwind the same layers simply keep the cascade predictable. */
+@layer theme, base, components, utilities;
+
+@import "./css/fonts.css";
+@import "./tokens/tokens.css" layer(theme);
+@import "./css/base.css" layer(base);
+@import "./css/components.css" layer(components);
+@import "./css/mark.css" layer(components);
