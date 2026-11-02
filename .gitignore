@@ -1,14 +1,16 @@
-# Python-generated files
 __pycache__/
 *.py[oc]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
 build/
 dist/
-wheels/
-*.egg-info
-
-# Virtual environments
-.venv
-
-# environment variables
+node_modules/
+*.tsbuildinfo
 .env
 .env.*
+!.env.example
+.data/
+*.db
+.DS_Store

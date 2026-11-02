@@ -374,3 +374,20 @@ a.dw-row:hover, .dw-row--interactive:hover { background: var(--dw-surface-hover)
 .dw-logo { display: inline-flex; align-items: center; color: var(--dw-text); text-decoration: none; }
 .dw-logo svg { height: 28px; width: auto; }
 .dw-wordmark-accent { fill: var(--dw-accent); }
+
+/* ---------- Native modal dialog ---------- */
+.dw-dialog {
+  width: min(560px, calc(100vw - var(--dw-space-8)));
+  max-height: calc(100vh - var(--dw-space-12));
+  overflow-y: auto;
+  padding: var(--dw-space-6);
+  border: 1px solid var(--dw-border);
+  border-radius: var(--dw-radius-xl);
+  background: var(--dw-surface);
+  color: var(--dw-text);
+  box-shadow: var(--dw-shadow-lg);
+  margin: auto;
+}
+.dw-dialog::backdrop { background: var(--dw-overlay); }
+.dw-dialog__heading { display: flex; align-items: center; justify-content: space-between; gap: var(--dw-space-4); margin-bottom: var(--dw-space-5); }
+.dw-dialog__heading h2 { margin: 0; }

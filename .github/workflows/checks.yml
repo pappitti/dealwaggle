@@ -1,0 +1,40 @@
+name: Checks
+on: [push, pull_request]
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: dealwaggle
+          POSTGRES_PASSWORD: ci-only
+          POSTGRES_DB: dealwaggle_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U dealwaggle -d dealwaggle_test"
+          --health-interval 3s --health-timeout 3s --health-retries 20
+    env:
+      DEALWAGGLE_DATABASE_URL: postgresql+psycopg://dealwaggle:ci-only@localhost:5432/dealwaggle_test
+      TEST_DATABASE_URL: postgresql+psycopg://dealwaggle:ci-only@localhost:5432/dealwaggle_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.13.5'
+          python-version: '3.13'
+      - run: uv sync --locked
+      - run: uv run alembic upgrade head
+      - run: uv run alembic check
+      - run: uv run pytest -q
+      - run: uv run alembic downgrade base && uv run alembic upgrade head
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build

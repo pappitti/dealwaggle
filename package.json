@@ -1,0 +1,16 @@
+{
+  "name": "dealwaggle",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "frontend",
+    "design-system"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace frontend",
+    "build": "npm run build --workspace frontend"
+  },
+  "engines": {
+    "node": ">=20.19"
+  }
+}

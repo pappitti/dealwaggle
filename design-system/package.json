@@ -1,0 +1,6 @@
+{
+  "name": "@dealwaggle/design-system", "version": "0.1.0", "private": true, "type": "module",
+  "exports": {"./react": "./react/index.ts", "./styles": "./dealwaggle.css"},
+  "peerDependencies": {"react": "^19.0.0"},
+  "devDependencies": {"@types/react": "^19.0.0"}
+}

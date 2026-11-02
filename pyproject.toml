@@ -1,17 +1,30 @@
 [project]
-name = "vc-scout"
+name = "dealwaggle"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-authors = [
-    { name = "pappitti", email = "pap@pitti.fr" }
-]
+description = "Private dealflow, shared with intent."
 requires-python = ">=3.13"
-dependencies = []
+dependencies = ["dealwaggle-backend", "dealwaggle-database"]
 
-[project.scripts]
-vc-scout = "vc_scout:main"
+[tool.uv]
+package = false
 
-[build-system]
-requires = ["uv_build>=0.13.5,<0.14.0"]
-build-backend = "uv_build"
+[tool.uv.workspace]
+members = ["backend", "database"]
+
+[tool.uv.sources]
+dealwaggle-backend = { workspace = true }
+dealwaggle-database = { workspace = true }
+
+[dependency-groups]
+dev = ["pytest>=8.3,<10", "httpx>=0.28,<1", "ruff>=0.11,<1"]
+
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]

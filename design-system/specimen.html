@@ -395,5 +395,7 @@ const sync = () => buttons.forEach((b) => b.setAttribute("aria-pressed", String(
 buttons.forEach((b) => b.addEventListener("click", () => { b.dataset.themeSet ? (root.dataset.theme = b.dataset.themeSet) : delete root.dataset.theme; sync(); }));
 sync();
 </script>
+
+<section style="padding:var(--dw-space-6)"><h2 class="dw-title-2">Modal dialog</h2><button class="dw-btn dw-btn--secondary" onclick="document.getElementById('sample-dialog').showModal()">Open dialog</button><dialog id="sample-dialog" class="dw-dialog"><div class="dw-dialog__heading"><h2 class="dw-title-2">Share a watchlist</h2><form method="dialog"><button class="dw-btn dw-btn--ghost" aria-label="Close dialog">Close</button></form></div><p>Choose which facts to share and who can read them.</p></dialog></section>
 </body>
 </html>

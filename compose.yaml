@@ -1,0 +1,49 @@
+name: dealwaggle
+x-backend: &backend
+  build:
+    context: .
+    dockerfile: backend/Dockerfile
+  env_file:
+    - path: .env
+      required: false
+  environment:
+    DEALWAGGLE_DATABASE_URL: postgresql+psycopg://dealwaggle:local-development-only@database:5432/dealwaggle
+    DEALWAGGLE_ENVIRONMENT: development
+    DEALWAGGLE_DEMO_MODE: ${DEALWAGGLE_DEMO_MODE:-false}
+services:
+  database:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: dealwaggle
+      POSTGRES_USER: dealwaggle
+      POSTGRES_PASSWORD: local-development-only
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dealwaggle -d dealwaggle"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  migrate:
+    <<: *backend
+    command: ["/app/.venv/bin/alembic", "upgrade", "head"]
+    depends_on:
+      database:
+        condition: service_healthy
+  api:
+    <<: *backend
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+  worker:
+    <<: *backend
+    command: ["/app/.venv/bin/dealwaggle-worker"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+volumes:
+  postgres_data:
